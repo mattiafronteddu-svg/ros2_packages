@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="scene">
+
+  <xacro:include filename="$(find scene_description)/urdf/central_rack_tools.xacro"/>
+
+  <material name="gray">
+    <color rgba="0.5 0.5 0.5 1"/>
+  </material>
+
+  <material name="light_gray">
+    <color rgba="0.8 0.8 0.8 1"/>
+  </material>
+
+  <link name="world"/>
+
+  <link name="support_base">
+    <visual>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/support_base_fanuc_cr35ib.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/support_base_fanuc_cr35ib.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+  </link>
+
+  <joint name="world_to_support_base" type="fixed">
+    <parent link="world"/>
+    <child link="support_base"/>
+    <origin xyz="-1.1905 0.0375 0" rpy="0 0 ${pi/2}"/>
+  </joint>
+
+   <link name="support_base_2">
+    <visual>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/support_base_fanuc_cr35ib.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/support_base_fanuc_cr35ib.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+  </link>
+
+  <joint name="world_to_support_base_2" type="fixed">
+    <parent link="world"/>
+    <child link="support_base_2"/>
+    <origin xyz="1.1905 0.0375 0" rpy="0 0 -${pi/2}"/>
+  </joint> 
+
+  <link name="working_frame">
+    <visual>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/working_frame.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="light_gray"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/working_frame.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+  </link>
+
+  <joint name="world_to_working_frame" type="fixed">
+    <parent link="world"/>
+    <child link="working_frame"/>
+    <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/2}"/>
+  </joint> 
+
+  <link name="rack_sx">
+    <visual>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/lateral_rack_tools_sx.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="light_gray"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/lateral_rack_tools_sx.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+  </link>
+
+  <joint name="world_to_rack_sx" type="fixed">
+    <parent link="world"/>
+    <child link="rack_sx"/>
+    <origin xyz="-1.0555 0.7125 0" rpy="0 0 0"/>
+  </joint> 
+
+  <link name="rack_dx">
+    <visual>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/lateral_rack_tools_dx.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="light_gray"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/lateral_rack_tools_dx.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+  </link>
+
+  <joint name="world_to_rack_dx" type="fixed">
+    <parent link="world"/>
+    <child link="rack_dx"/>
+    <origin xyz="1.0555 0.7125 0" rpy="0 0 0"/>
+  </joint> 
+
+  <xacro:central_rack_tools
+    parent="world"
+    xyz="0.310 0.9925 0"
+    rpy="0 0 0"/>
+
+  <link name="vision_structure">
+    <visual>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/vision_structure.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="light_gray"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/vision_structure.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+  </link>
+
+  <joint name="world_to_vision_structure" type="fixed">
+    <parent link="world"/>
+    <child link="vision_structure"/>
+    <origin xyz="-2.0855 -2.0525 0" rpy="0 0 0"/>
+  </joint> 
+
+  <link name="cart">
+    <visual>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/cart.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="light_gray"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://scene_description/meshes/cart.stl" scale="0.001  0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+  </link>
+
+  <joint name="world_to_cart" type="fixed">
+    <parent link="world"/>
+    <child link="cart"/>
+    <origin xyz="0 -1 0" rpy="0 0 0"/>
+  </joint> 
+
+</robot>

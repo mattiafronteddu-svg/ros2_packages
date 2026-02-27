@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<robot name="table_desc">
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+
+  <!-- Piano del tavolo (radice) -->
+  <link name="table_sup">
+    <visual>
+      <geometry>
+        <box size="1.0 0.5 0.05"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="1.0 0.5 0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="50"/>
+      <inertia ixx="1e-3" ixy="0.0" ixz="0.0" iyy="1e-3" iyz="0.0" izz="1e-3"/>
+    </inertial>
+  </link>
+
+  <!-- Gamba 1 -->
+  <link name="leg_1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.5"/>
+      <geometry>
+        <box size="0.05 0.05 1.0"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 -0.5"/>
+      <geometry>
+        <box size="0.05 0.05 1.0"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 -0.5" rpy="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="1e-3" ixy="0.0" ixz="0.0" iyy="1e-3" iyz="0.0" izz="1e-3"/>
+    </inertial>
+  </link>
+
+  <!-- Gamba 2 -->
+  <link name="leg_2">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.5"/>
+      <geometry>
+        <box size="0.05 0.05 1.0"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 -0.5"/>
+      <geometry>
+        <box size="0.05 0.05 1.0"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 -0.5" rpy="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="1e-3" ixy="0.0" ixz="0.0" iyy="1e-3" iyz="0.0" izz="1e-3"/>
+    </inertial>
+  </link>
+
+  <!-- Gamba 3 -->
+  <link name="leg_3">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.5"/>
+      <geometry>
+        <box size="0.05 0.05 1.0"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 -0.5"/>
+      <geometry>
+        <box size="0.05 0.05 1.0"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 -0.5" rpy="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="1e-3" ixy="0.0" ixz="0.0" iyy="1e-3" iyz="0.0" izz="1e-3"/>
+    </inertial>
+  </link>
+
+  <!-- Gamba 4 -->
+  <link name="leg_4">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.5"/>
+      <geometry>
+        <box size="0.05 0.05 1.0"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 -0.5"/>
+      <geometry>
+        <box size="0.05 0.05 1.0"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 -0.5" rpy="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="1e-3" ixy="0.0" ixz="0.0" iyy="1e-3" iyz="0.0" izz="1e-3"/>
+    </inertial>
+  </link>
+
+  <!-- Joint: parent = table_sup, child = leg_X (così table_sup è l'unica root) -->
+  <joint name="table_to_leg_1" type="fixed">
+    <parent link="table_sup"/>
+    <child link="leg_1"/>
+    <origin xyz="-0.5 -0.25 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="table_to_leg_2" type="fixed">
+    <parent link="table_sup"/>
+    <child link="leg_2"/>
+    <origin xyz="0.5 -0.25 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="table_to_leg_3" type="fixed">
+    <parent link="table_sup"/>
+    <child link="leg_3"/>
+    <origin xyz="0.5 0.25 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="table_to_leg_4" type="fixed">
+    <parent link="table_sup"/>
+    <child link="leg_4"/>
+    <origin xyz="-0.5 0.25 0" rpy="0 0 0"/>
+  </joint>
+
+</robot>

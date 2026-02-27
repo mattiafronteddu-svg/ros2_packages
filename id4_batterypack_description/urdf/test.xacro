@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="id4_batterypack">
+
+  <!-- ======================= -->
+  <!-- Materials -->
+  <!-- ======================= -->
+  <material name="gray">
+    <color rgba="0.5 0.5 0.5 1"/>
+  </material>
+
+  <material name="light_gray">
+    <color rgba="0.8 0.8 0.8 1"/>
+  </material>
+
+  <!-- ======================= -->
+  <!-- Base links -->
+  <!-- ======================= -->
+  <link name="world"/>
+
+  <link name="busbar_1">
+    <visual>
+      <geometry>
+        <mesh filename="package://id4_batterypack_description/meshes/busbar_2_fix.stl"
+              scale="1 1 1"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://id4_batterypack_description/meshes/busbar_2_fix.stl"
+              scale="1 1 1"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+  </link>
+
+  <joint name="world_to_busbar" type="fixed">
+    <parent link="world"/>
+    <child link="busbar_1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+</robot>

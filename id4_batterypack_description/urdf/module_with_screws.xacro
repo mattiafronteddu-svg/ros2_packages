@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <!-- ===== module mounting screws geometry (relative to module link) ===== -->
+  <xacro:property name="module_x0" value="0.011"/>
+  <xacro:property name="module_y0" value="0.015"/>
+  <xacro:property name="module_z0" value="0.1"/>
+  <xacro:property name="module_dx" value="0.5664"/>
+  <xacro:property name="module_dy" value="0.202"/>
+
+  <!-- ===== Screw for module ===== -->
+  <xacro:macro name="screw_module" params="name parent xyz rpy material:=gray">
+    <link name="${name}">
+      <visual>
+        <geometry>
+          <mesh filename="package://id4_batterypack_description/meshes/m8x72_xzn_m10.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="${material}"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://id4_batterypack_description/meshes/m8x72_xzn_m10.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </collision>
+    </link>
+
+    <joint name="${name}_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- ===== One module instance + its 4 screws ===== -->
+  <xacro:macro name="module_instance" params="prefix idx world_x world_y world_z world_rpy material:=light_gray">
+    <link name="${prefix}module_${idx}">
+      <visual>
+        <geometry>
+          <mesh filename="package://id4_batterypack_description/meshes/module.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="${material}"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://id4_batterypack_description/meshes/module.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </collision>
+    </link>
+
+    <joint name="world_to_${prefix}module_${idx}" type="fixed">
+      <parent link="world"/>
+      <child link="${prefix}module_${idx}"/>
+      <origin xyz="${world_x} ${world_y} ${world_z}" rpy="${world_rpy}"/>
+    </joint>
+
+    <!-- 4 screws relative to module -->
+    <xacro:screw_module name="${prefix}mod_${idx}_s1" parent="${prefix}module_${idx}"
+                        xyz="${module_x0} ${module_y0} ${module_z0}" rpy="0 0 0"/>
+    <xacro:screw_module name="${prefix}mod_${idx}_s2" parent="${prefix}module_${idx}"
+                        xyz="${module_x0} ${module_y0 + module_dy} ${module_z0}" rpy="0 0 0"/>
+    <xacro:screw_module name="${prefix}mod_${idx}_s3" parent="${prefix}module_${idx}"
+                        xyz="${module_x0 + module_dx} ${module_y0} ${module_z0}" rpy="0 0 0"/>
+    <xacro:screw_module name="${prefix}mod_${idx}_s4" parent="${prefix}module_${idx}"
+                        xyz="${module_x0 + module_dx} ${module_y0 + module_dy} ${module_z0}" rpy="0 0 0"/>
+  </xacro:macro>
+
+</robot>
