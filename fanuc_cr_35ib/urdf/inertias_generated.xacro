@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <!-- Sensor -->
+  <xacro:property name="s_mass" value="124"/>
+  <xacro:property name="s_xyz" value="0.0001556 -2.18e-05 0.1272444"/>
+  <xacro:property name="s_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="s_ixx" value="1.94080725"/>
+  <xacro:property name="s_ixy" value="0.0014541876"/>
+  <xacro:property name="s_ixz" value="0.0018456964"/>
+  <xacro:property name="s_iyy" value="1.867988353"/>
+  <xacro:property name="s_iyz" value="-0.0002639106"/>
+  <xacro:property name="s_izz" value="2.707963372"/>
+
+  <!-- Base -->
+  <xacro:property name="b_mass" value="38.4558"/>
+  <xacro:property name="b_xyz" value="-0.0221188 0.0038776 0.3403027"/>
+  <xacro:property name="b_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="b_ixx" value="0.4531530558"/>
+  <xacro:property name="b_ixy" value="-0.0062595067"/>
+  <xacro:property name="b_ixz" value="-0.0215604658"/>
+  <xacro:property name="b_iyy" value="0.5987592442"/>
+  <xacro:property name="b_iyz" value="-0.0045270636"/>
+  <xacro:property name="b_izz" value="0.8387287082999999"/>
+
+  <!-- Link 1 -->
+  <xacro:property name="l1_mass" value="111.4512"/>
+  <xacro:property name="l1_xyz" value="0.0101989 0.0208502 -0.0979719"/>
+  <xacro:property name="l1_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="l1_ixx" value="1.99664151"/>
+  <xacro:property name="l1_ixy" value="-0.163274737"/>
+  <xacro:property name="l1_ixz" value="0.09616731140000001"/>
+  <xacro:property name="l1_iyy" value="2.0211842"/>
+  <xacro:property name="l1_iyz" value="0.249519015"/>
+  <xacro:property name="l1_izz" value="1.78475462"/>
+
+  <!-- Cover 1 -->
+  <xacro:property name="c1_mass" value="0.4958"/>
+  <xacro:property name="c1_xyz" value="0.0534674 0.1195277 0.0646408"/>
+  <xacro:property name="c1_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="c1_ixx" value="0.005763057"/>
+  <xacro:property name="c1_ixy" value="-0.0004880196"/>
+  <xacro:property name="c1_ixz" value="-0.0018268501"/>
+  <xacro:property name="c1_iyy" value="0.0085630712"/>
+  <xacro:property name="c1_iyz" value="-0.0007937218"/>
+  <xacro:property name="c1_izz" value="0.0097265366"/>
+
+  <!-- Rear Cover 1 -->
+  <xacro:property name="rc1_mass" value="0.3844"/>
+  <xacro:property name="rc1_xyz" value="-0.0804708 0.0391483 -0.03947540000000005"/>
+  <xacro:property name="rc1_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="rc1_ixx" value="0.0070365023"/>
+  <xacro:property name="rc1_ixy" value="0.0022648748"/>
+  <xacro:property name="rc1_ixz" value="-0.0011181009"/>
+  <xacro:property name="rc1_iyy" value="0.005525327"/>
+  <xacro:property name="rc1_iyz" value="-0.0014733148"/>
+  <xacro:property name="rc1_izz" value="0.0085983654"/>
+
+  <!-- Link 2 -->
+  <xacro:property name="l2_mass" value="52.129"/>
+  <xacro:property name="l2_xyz" value="-0.044884400000000005 -0.3506632 -0.17924669999999995"/>
+  <xacro:property name="l2_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="l2_ixx" value="4.865699995"/>
+  <xacro:property name="l2_ixy" value="0.1284571259"/>
+  <xacro:property name="l2_ixz" value="0.051187569399999994"/>
+  <xacro:property name="l2_iyy" value="0.3163318153"/>
+  <xacro:property name="l2_iyz" value="-0.0786491114999997"/>
+  <xacro:property name="l2_izz" value="4.978356461"/>
+
+  <!-- Link 3 -->
+  <xacro:property name="l3_mass" value="35.0853"/>
+  <xacro:property name="l3_xyz" value="0.116614 -0.1445105 -0.03343750000000001"/>
+  <xacro:property name="l3_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="l3_ixx" value="0.5960907964"/>
+  <xacro:property name="l3_ixy" value="-0.2549129436"/>
+  <xacro:property name="l3_ixz" value="-0.004501584800000025"/>
+  <xacro:property name="l3_iyy" value="0.620491024"/>
+  <xacro:property name="l3_iyz" value="0.03819137489999997"/>
+  <xacro:property name="l3_izz" value="0.7477802771"/>
+
+  <!-- Center of Mass described from cad -->
+  <!-- <xacro:property name="l3_xyz" value="0.1138611 -0.1408897 -0.0316763"/>
+  <xacro:property name="l3_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="l3_ixx" value="0.6199"/>
+  <xacro:property name="l3_ixy" value="-0.269807"/>
+  <xacro:property name="l3_ixz" value="-0.0114109777"/>
+  <xacro:property name="l3_iyy" value="0.6385"/>
+  <xacro:property name="l3_iyz" value="0.0471170878"/>
+  <xacro:property name="l3_izz" value="0.7809"/> -->
+
+  <!-- <xacro:property name="l3_xyz" value="0.1138611 -0.1408897 -0.0316763"/>
+  <xacro:property name="l3_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="l3_ixx" value="1.368"/>
+  <xacro:property name="l3_ixy" value="-0.8461683939"/>
+  <xacro:property name="l3_ixz" value="-0.1413091994"/>
+  <xacro:property name="l3_iyy" value="1.137"/>
+  <xacro:property name="l3_iyz" value="0.2077"/>
+  <xacro:property name="l3_izz" value="1.958"/> -->
+
+  <!-- <xacro:property name="l3_xyz" value="0.00 0.00 0.00"/>
+  <xacro:property name="l3_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="l3_ixx" value="1.368"/>
+  <xacro:property name="l3_ixy" value="0.00"/>
+  <xacro:property name="l3_ixz" value="0.00"/>
+  <xacro:property name="l3_iyy" value="1.137"/>
+  <xacro:property name="l3_iyz" value="0.00"/>
+  <xacro:property name="l3_izz" value="1.958"/> -->
+
+  <!-- Cover 3 -->
+  <xacro:property name="c3_mass" value="0.2852"/>
+  <xacro:property name="c3_xyz" value="-0.0005791999999999946 -0.012994499999999996 -0.08883449999999998"/>
+  <xacro:property name="c3_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="c3_ixx" value="0.0023018635"/>
+  <xacro:property name="c3_ixy" value="3.119999999998889e-08"/>
+  <xacro:property name="c3_ixz" value="3.9008700000000005e-05"/>
+  <xacro:property name="c3_iyy" value="0.0016836229"/>
+  <xacro:property name="c3_iyz" value="0.00014241919999999998"/>
+  <xacro:property name="c3_izz" value="0.0022101318"/>
+
+  <!-- Link 4 -->
+  <xacro:property name="l4_mass" value="21.7498"/>
+  <xacro:property name="l4_xyz" value="-0.0002992999999999652 -0.06310550000000001 -0.5685453"/>
+  <xacro:property name="l4_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="l4_ixx" value="0.774914081"/>
+  <xacro:property name="l4_ixy" value="-6.07571000000047e-05"/>
+  <xacro:property name="l4_ixz" value="-0.0006742048999999572"/>
+  <xacro:property name="l4_iyy" value="0.765641749"/>
+  <xacro:property name="l4_iyz" value="0.0766512033"/>
+  <xacro:property name="l4_izz" value="0.0781388112"/>
+
+  <!-- Link 5 -->
+  <xacro:property name="l5_mass" value="1.2716"/>
+  <xacro:property name="l5_xyz" value="2.7000000000018478e-06 -0.0301773 0.019813999999999995"/>
+  <xacro:property name="l5_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="l5_ixx" value="0.0032604620000000004"/>
+  <xacro:property name="l5_ixy" value="6.99999999993736e-10"/>
+  <xacro:property name="l5_ixz" value="-2.060000000005185e-08"/>
+  <xacro:property name="l5_iyy" value="0.0033627807"/>
+  <xacro:property name="l5_iyz" value="0.0008467753999999999"/>
+  <xacro:property name="l5_izz" value="0.0038053704"/>
+
+  <!-- Link 6 -->
+  <xacro:property name="l6_mass" value="0.7536"/>
+  <xacro:property name="l6_xyz" value="0.0 6.867855989022331e-18 -0.0560803"/>
+  <xacro:property name="l6_rpy" value="0.0 0.0 0.0"/>
+  <xacro:property name="l6_ixx" value="0.0006884945"/>
+  <xacro:property name="l6_ixy" value="0.0"/>
+  <xacro:property name="l6_ixz" value="0.0"/>
+  <xacro:property name="l6_iyy" value="0.0006886907"/>
+  <xacro:property name="l6_iyz" value="-4.3688196870398566e-20"/>
+  <xacro:property name="l6_izz" value="0.0010454319"/>
+
+</robot>

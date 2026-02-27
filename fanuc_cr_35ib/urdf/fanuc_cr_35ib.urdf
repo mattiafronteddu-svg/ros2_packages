@@ -1,0 +1,338 @@
+<?xml version="1.0"?>
+
+<robot name="cr_35ib">
+
+    <material name="black">
+        <color rgba="0.05 0.05 0.05 1"/>
+    </material>
+
+    <material name="green">
+        <color rgba="0 0.7 0 1"/>
+    </material>
+
+    <link name="world"/>
+
+<!-- base Joint and Link 0 -->
+
+    <joint name="base_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="world"/>
+        <child link="sensor"/>
+    </joint>
+
+    <link name="sensor">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/sensor.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/sensor.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+        <!-- <inertial>
+            <mass value="."/>
+            <origin rpy="" xyz=""/>
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz=""/>
+        </inertial> -->
+    </link>
+
+    <joint name="base_joint2" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="world"/>
+        <child link="base"/>
+    </joint>
+
+    <link name="base">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/base.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/base.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+        <!-- <inertial>
+            <mass value=""/>
+            <origin rpy="" xyz=""/>
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz=""/>
+        </inertial> -->
+    </link>
+
+<!-- Joint 1 and Link 1 -->
+
+    <joint name="J1" type="revolute">
+        <origin rpy="0 0 0" xyz="0 0 0.668"/>
+        <parent link="base"/>
+        <child link="link1"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-3.23" upper="3.23" effort="1" velocity="1.0"/>
+    </joint>
+    <link name="link1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/link1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/link1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+        <!-- <inertial>
+            <mass value=""/>
+            <origin rpy="" xyz=""/>
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz=""/>
+        </inertial> -->
+    </link>
+
+    <joint name="cover_j1" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="link1"/>
+        <child link="cover_j1"/>
+    </joint>
+    <link name="cover_j1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/coverj1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/coverj1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+        <!-- <inertial>
+            <mass value=""/>
+            <origin rpy="" xyz=""/>
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz=""/>
+        </inertial> -->
+    </link>
+
+    <joint name="rear_cover_j1" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="link1"/>
+        <child link="rear_cover_j1"/>
+    </joint>
+    <link name="rear_cover_j1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/rearcoverj1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/rearcoverj1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+        <!-- <inertial>
+            <mass value=""/>
+            <origin rpy="" xyz=""/>
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz=""/>
+        </inertial> -->
+    </link>
+
+<!-- Joint 2 and Link 2 -->
+
+    <joint name="J2" type="revolute">
+        <origin rpy="-1.570796 0 0" xyz="0.075 0 0"/>
+        <parent link="link1"/>
+        <child link="link2"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-1.40" upper="2.36" effort="1" velocity="1.0"/>
+    </joint>
+    <link name="link2">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/link2.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/link2.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+        <!-- <inertial>
+            <mass value=""/>
+            <origin rpy="" xyz=""/>
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz=""/>
+        </inertial> -->
+    </link>
+
+<!-- Joint 3 and Link 3 -->
+
+    <joint name="J3" type="revolute">
+        <origin rpy="3.141529 0 -1.570796" xyz="0 -0.840 0"/>
+        <parent link="link2"/>
+        <child link="link3"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-2.42" upper="3.49" effort="1" velocity="1.0"/>
+    </joint>
+    <link name="link3">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/link3.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/link3.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+        <!-- <inertial>
+            <mass value=""/>
+            <origin rpy="" xyz=""/>
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz=""/>
+        </inertial> -->
+    </link>
+
+    <joint name="cover_j3" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="link3"/>
+        <child link="cover_j3"/>
+    </joint>
+    <link name="cover_j3">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/coverj3.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/coverj3.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+        <!-- <inertial>
+            <mass value=""/>
+            <origin rpy="" xyz=""/>
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz=""/>
+        </inertial> -->
+    </link>
+
+<!-- Joint 4 and Link 4 -->
+
+    <joint name="J4" type="revolute">
+        <origin rpy="-1.570796 0 0" xyz="0.215 0 0"/>
+        <parent link="link3"/>
+        <child link="link4"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-3.49" upper="3.49" effort="1" velocity="1.0"/>
+    </joint>
+    <link name="link4">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/link4.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/link4.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+        <!-- <inertial>
+            <mass value=""/>
+            <origin rpy="" xyz=""/>
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz=""/>
+        </inertial> -->
+    </link>
+
+<!-- Joint 5 and Link 5 -->
+
+    <joint name="J5" type="revolute">
+        <origin rpy="1.570796 0 0" xyz="0 0 -0.890"/>
+        <parent link="link4"/>
+        <child link="link5"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-2.44" upper="2.44" effort="1" velocity="1.0"/>
+    </joint>
+    <link name="link5">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/link5.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/link5.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+        <!-- <inertial>
+            <mass value=""/>
+            <origin rpy="" xyz=""/>
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz=""/>
+        </inertial> -->
+    </link>
+
+<!-- Joint 6 and Link 6 -->
+
+    <joint name="J6" type="revolute">
+        <origin rpy="-1.570796 0 0" xyz="0 0 0"/>
+        <parent link="link5"/>
+        <child link="link6"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-7.85" upper="7.85" effort="1" velocity="1.0"/>
+    </joint>
+    <link name="link6">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/link6.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/link6.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+        <!-- <inertial>
+            <mass value=""/>
+            <origin rpy="" xyz=""/>
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz=""/>
+        </inertial> -->
+    </link>
+
+<!-- TCP -->
+
+    <joint name="tcp" type="fixed">
+        <origin rpy="3.141593 0 0" xyz="0 0 -0.090"/>
+        <parent link="link6"/>
+        <child link="tcp"/>
+    </joint>
+    <link name="tcp"/>
+
+</robot>

@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <!--  macro per i pattern in x e y  -->
+  <xacro:macro name="screw_line_recursive_x"
+               params="prefix parent x0 y0 z0 step count_x material_screw idx:=0">
+
+    <xacro:if value="${idx &lt; count_x}">
+
+      <link name="${prefix}_${idx}">
+        <visual>
+          <geometry>
+            <mesh filename="package://id4_batterypack_description/meshes/lens_flange_m5x25.stl"
+                  scale="0.001 0.001 0.001"/>
+          </geometry>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <material name="${material_screw}"/>
+        </visual>
+
+        <collision>
+          <geometry>
+            <mesh filename="package://id4_batterypack_description/meshes/lens_flange_m5x25.stl"
+                  scale="0.001 0.001 0.001"/>
+          </geometry>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+      </link>
+
+      <joint name="${prefix}_${idx}_joint" type="fixed">
+        <parent link="${parent}"/>
+        <child link="${prefix}_${idx}"/>
+        <origin xyz="${x0 + idx*step} ${y0} ${z0}" rpy="0 0 0"/>
+      </joint>
+
+      <xacro:screw_line_recursive_x
+        prefix="${prefix}"
+        parent="${parent}"
+        x0="${x0}" y0="${y0}" z0="${z0}"
+        step="${step}"
+        count_x="${count_x}"
+        material_screw="${material_screw}"
+        idx="${idx+1}"/>
+
+    </xacro:if>
+  </xacro:macro>
+
+  <xacro:macro name="screw_line_recursive_y"
+             params="prefix parent x0 y0 z0 step count_y material_screw idx:=0">
+
+
+    <xacro:if value="${idx &lt; count_y}">
+
+        <link name="${prefix}_${idx}">
+        <visual>
+            <geometry>
+            <mesh filename="package://id4_batterypack_description/meshes/lens_flange_m5x25.stl"
+                    scale="0.001 0.001 0.001"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="${material_screw}"/>
+        </visual>
+
+        <collision>
+            <geometry>
+            <mesh filename="package://id4_batterypack_description/meshes/lens_flange_m5x25.stl"
+                    scale="0.001 0.001 0.001"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+        </link>
+
+        <joint name="${prefix}_${idx}_joint" type="fixed">
+        <parent link="${parent}"/>
+        <child link="${prefix}_${idx}"/>
+        <origin xyz="${x0} ${y0 + idx*step} ${z0}" rpy="0 0 0"/>
+        </joint>
+
+        <xacro:screw_line_recursive_y
+        prefix="${prefix}"
+        parent="${parent}"
+        x0="${x0}" y0="${y0}" z0="${z0}"
+        step="${step}"
+        count_y="${count_y}"
+        material_screw="${material_screw}"
+        idx="${idx+1}"/>
+
+    </xacro:if>
+  </xacro:macro>
+
+  <!--  Cover + 1screws  -->
+  <xacro:macro name="cover_with_screws"
+               params="name pos material_cover:=light_gray_cover material_screw:=black">
+
+    <!-- Cover -->
+    <link name="cover">
+      <visual>
+        <geometry>
+          <mesh filename="package://id4_batterypack_description/meshes/top_cover.stl"
+                scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="${material_cover}"/>
+      </visual>
+
+      <collision>
+        <geometry>
+          <mesh filename="package://id4_batterypack_description/meshes/top_cover.stl"
+                scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </collision>
+    </link>
+
+    <joint name="chassis_to_cover" type="fixed">
+      <parent link="chassis"/>
+      <child link="cover"/>
+      <origin xyz="${pos}" rpy="0 0 0"/>
+    </joint>
+
+    <!-- 18 SCREWS X basso -->
+    <xacro:screw_line_recursive_x
+      prefix="${name}_screw_y0"
+      parent="cover"
+      x0="0.595"
+      y0="0.012"
+      z0="0.005"
+      step="-0.070"
+      count_x="18"
+      material_screw="${material_screw}"/>
+
+    <!-- 18 SCREWS X alto  -->
+    <xacro:screw_line_recursive_x
+      prefix="${name}_screw_y1"
+      parent="cover"
+      x0="0.595"
+      y0="1.673"
+      z0="0.005"
+      step="-0.070"
+      count_x="18"
+      material_screw="${material_screw}"/>
+
+    <!-- 23 SCREWS in Y dx -->
+    <xacro:screw_line_recursive_y
+      prefix="${name}_screw_vert_y0"
+      parent="cover"
+      x0="0.637"
+      y0="0.0725"
+      z0="0.005"
+      step="0.070"
+      count_y="23"
+      material_screw="${material_screw}"/>
+
+    <!-- 23 SCREWS in Y sx -->
+    <xacro:screw_line_recursive_y
+      prefix="${name}_screw_vert_y1"
+      parent="cover"
+      x0="-0.637"
+      y0="0.0725"
+      z0="0.005"
+      step="0.070"
+      count_y="23"
+      material_screw="${material_screw}"/>
+
+  </xacro:macro>
+
+</robot>

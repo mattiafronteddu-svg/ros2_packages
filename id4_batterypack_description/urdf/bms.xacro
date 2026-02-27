@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <!-- ===================================================== -->
+  <!--  BMS + 2 M6 screws                               -->
+  <!-- ===================================================== -->
+
+  <xacro:macro name="bms_with_screws"
+               params="name parent xyz rpy material_bms:=black material_screw:=light_gray">
+
+    <!-- ================= BMS ================= -->
+    <link name="${name}">
+      <visual>
+        <geometry>
+          <mesh filename="package://id4_batterypack_description/meshes/bms.stl"
+                scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="${material_bms}"/>
+      </visual>
+
+      <collision>
+        <geometry>
+          <mesh filename="package://id4_batterypack_description/meshes/bms.stl"
+                scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </collision>
+    </link>
+
+    <joint name="${name}_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+
+
+    <!-- ================= SCREW - ================= -->
+    <link name="${name}_screw_neg">
+      <visual>
+        <geometry>
+          <mesh filename="package://id4_batterypack_description/meshes/lens_flange_m5x25.stl"
+                scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="${material_screw}"/>
+      </visual>
+
+      <collision>
+        <geometry>
+          <mesh filename="package://id4_batterypack_description/meshes/lens_flange_m5x25.stl"
+                scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </collision>
+    </link>
+
+    <joint name="${name}_screw_neg_joint" type="fixed">
+      <parent link="${name}"/>
+      <child link="${name}_screw_neg"/>
+      <origin xyz="0 -0 0.010" rpy="0 0 0"/>
+    </joint>
+
+
+    <!-- ================= SCREW + ================= -->
+    <link name="${name}_screw_pos">
+      <visual>
+        <geometry>
+          <mesh filename="package://id4_batterypack_description/meshes/lens_flange_m5x25.stl"
+                scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="${material_screw}"/>
+      </visual>
+
+      <collision>
+        <geometry>
+          <mesh filename="package://id4_batterypack_description/meshes/lens_flange_m5x25.stl"
+                scale="1 1 1"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </collision>
+    </link>
+
+    <joint name="${name}_screw_pos_joint" type="fixed">
+      <parent link="${name}"/>
+      <child link="${name}_screw_pos"/>
+      <origin xyz="0 0.334 0.010" rpy="0 0 0"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

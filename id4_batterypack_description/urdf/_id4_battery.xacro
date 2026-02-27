@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="scene">
+
+  <xacro:include filename="$(find id4_batterypack_description)/urdf/materials.xacro"/>
+  <xacro:include filename="$(find id4_batterypack_description)/urdf/module_with_screws.xacro"/>
+  <xacro:include filename="$(find id4_batterypack_description)/urdf/busbar_type1.xacro"/>
+  <xacro:include filename="$(find id4_batterypack_description)/urdf/busbar_type2.xacro"/>
+  <xacro:include filename="$(find id4_batterypack_description)/urdf/busbar_type3.xacro"/>
+  <xacro:include filename="$(find id4_batterypack_description)/urdf/bms.xacro"/>
+  <xacro:include filename="$(find id4_batterypack_description)/urdf/cover.xacro"/>
+
+
+  <link name="world"/>
+
+  <!-- ================= Module properties ================= -->
+
+  <!-- ===== Common Z (same for both rows) ===== -->
+  <xacro:property name="module_z" value="0.015"/>
+
+  <!-- ===== Row A: first module pose ===== -->
+  <xacro:property name="rowA_x" value="0.0236"/>
+  <xacro:property name="rowA_y0" value="0.2285"/>
+
+  <!-- ===== Row B: first module pose (x negative, yaw = pi) ===== -->
+  <xacro:property name="rowB_x" value="-0.0236"/>
+  <xacro:property name="rowB_y0" value="0.4525"/>
+
+  <!-- ===== Non-uniform Y offsets for the 6 modules in a row ===== -->
+  <!-- 0, +0.249, +0.249, +0.269, +0.249, +0.249 -->
+  <xacro:property name="dy0" value="0.000"/>
+  <xacro:property name="dy1" value="0.249"/> <!-- +0.249 -->
+  <xacro:property name="dy2" value="0.498"/> <!-- +0.249 +0.249 -->
+  <xacro:property name="dy3" value="0.767"/> <!-- +0.249 +0.249 +0.269 -->
+  <xacro:property name="dy4" value="1.016"/> <!-- +0.249 +0.249 +0.269 +0.249 -->
+  <xacro:property name="dy5" value="1.265"/> <!-- +0.249 +0.249 +0.269 +0.249 -->
+
+  <!-- ================= Battery pack ================= -->
+  <link name="chassis">
+    <visual>
+      <geometry>
+        <mesh filename="package://id4_batterypack_description/meshes/battery_pack.stl"
+              scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://id4_batterypack_description/meshes/battery_pack.stl"
+              scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+  </link>
+
+  <joint name="world_to_chassis" type="fixed">
+    <parent link="world"/>
+    <child link="chassis"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ================= INSTANCES ================= -->
+  <!-- ================= Busbars A ================= -->
+  <xacro:busbar_1_with_screws
+    name="busbar1_0"
+    parent="chassis"
+    xyz="0.0341 0.216 0.1078"
+    rpy="0 0 0"/>
+
+  <xacro:busbar_1_with_screws
+    name="busbar1_1"
+    parent="chassis"
+    xyz="0.0341 ${0.216+0.249} 0.1078"
+    rpy="0 0 0"/>
+
+  <xacro:busbar_1_with_screws
+    name="busbar1_2"
+    parent="chassis"
+    xyz="0.0341 ${0.216+2*0.249} 0.1078"
+    rpy="0 0 0"/>
+    
+  <xacro:busbar_2_with_screws
+    name="busbar_2_0"
+    parent="chassis"
+    xyz="0.0341 ${0.216+2*0.249+0.269} 0.1078"
+    rpy="0 0 0"/>
+
+  <xacro:busbar_1_with_screws
+    name="busbar1_3"
+    parent="chassis"
+    xyz="0.0341 ${0.216+3*0.249+0.269} 0.1078"
+    rpy="0 0 0"/>
+
+  <xacro:busbar_1_with_screws
+    name="busbar1_4"
+    parent="chassis"
+    xyz="0.0341 ${0.216+4*0.249+0.269} 0.1078"
+    rpy="0 0 0"/>
+
+  <xacro:busbar_3_with_screws
+    name="busbar_3_0"
+    parent="chassis"
+    xyz="0 1.7005 0.0985"
+    rpy="0 0 ${pi}"/>
+
+  <!-- ================= Busbars B ================= -->
+  <xacro:busbar_1_with_screws
+    name="busbar1_5"
+    parent="chassis"
+    xyz="-0.0341 0.216 0.1078"
+    rpy="0 0 0"/>
+
+  <xacro:busbar_1_with_screws
+    name="busbar1_6"
+    parent="chassis"
+    xyz="-0.0341 ${0.216+0.249} 0.1078"
+    rpy="0 0 0"/>
+
+  <xacro:busbar_1_with_screws
+    name="busbar1_7"
+    parent="chassis"
+    xyz="-0.0341 ${0.216+2*0.249} 0.1078"
+    rpy="0 0 0"/>
+    
+  <xacro:busbar_2_with_screws
+    name="busbar_2_1"
+    parent="chassis"
+    xyz="-0.0341 ${0.216+2*0.249+0.269} 0.1078"
+    rpy="0 0 0"/>
+
+  <xacro:busbar_1_with_screws
+    name="busbar1_8"
+    parent="chassis"
+    xyz="-0.0341 ${0.216+3*0.249+0.269} 0.1078"
+    rpy="0 0 0"/>
+
+  <xacro:busbar_1_with_screws
+    name="busbar1_9"
+    parent="chassis"
+    xyz="-0.0341 ${0.216+4*0.249+0.269} 0.1078"
+    rpy="0 0 0"/>
+
+  <!-- ================= BMSs ================= -->
+  <xacro:bms_with_screws
+    name="bms_0_0"
+    parent="chassis"
+    xyz="-0.003 0.2935 0.097"
+    rpy="0 0 0"/>
+
+  <xacro:bms_with_screws
+    name="bms_0_1"
+    parent="chassis"
+    xyz="-0.003 ${0.2935+0.509} 0.097"
+    rpy="0 0 0"/>
+
+  <xacro:bms_with_screws
+    name="bms_0_2"
+    parent="chassis"
+    xyz="-0.003 ${0.2935+2*0.509} 0.097"
+    rpy="0 0 0"/>
+
+  <!-- Row A (module)                                       -->
+  <xacro:module_instance prefix="A_" idx="0"
+    xyz="${rowA_x} ${rowA_y0 + dy0} ${module_z}" rpy="0 0 0"/>
+  <xacro:module_instance prefix="A_" idx="1"
+    xyz="${rowA_x} ${rowA_y0 + dy1} ${module_z}" rpy="0 0 0"/>
+  <xacro:module_instance prefix="A_" idx="2"
+    xyz="${rowA_x} ${rowA_y0 + dy2} ${module_z}" rpy="0 0 0"/>
+  <xacro:module_instance prefix="A_" idx="3"
+    xyz="${rowA_x} ${rowA_y0 + dy3} ${module_z}" rpy="0 0 0"/>
+  <xacro:module_instance prefix="A_" idx="4"
+    xyz="${rowA_x} ${rowA_y0 + dy4} ${module_z}" rpy="0 0 0"/>
+  <xacro:module_instance prefix="A_" idx="5"
+    xyz="${rowA_x} ${rowA_y0 + dy5} ${module_z}" rpy="0 0 0"/>
+
+  <!-- Row B (module)-->
+  <xacro:module_instance prefix="B_" idx="0"
+    xyz="${rowB_x} ${rowB_y0 + dy0} ${module_z}" rpy="0 0 ${pi}"/>
+  <xacro:module_instance prefix="B_" idx="1"
+    xyz="${rowB_x} ${rowB_y0 + dy1} ${module_z}" rpy="0 0 ${pi}"/>
+  <xacro:module_instance prefix="B_" idx="2"
+    xyz="${rowB_x} ${rowB_y0 + dy2} ${module_z}" rpy="0 0 ${pi}"/>
+  <xacro:module_instance prefix="B_" idx="3"
+    xyz="${rowB_x} ${rowB_y0 + dy3} ${module_z}" rpy="0 0 ${pi}"/>
+  <xacro:module_instance prefix="B_" idx="4"
+    xyz="${rowB_x} ${rowB_y0 + dy4} ${module_z}" rpy="0 0 ${pi}"/>
+  <xacro:module_instance prefix="B_" idx="5"
+    xyz="${rowB_x} ${rowB_y0 + dy5} ${module_z}" rpy="0 0 ${pi}"/>
+
+  <!-- Cover -->
+  <xacro:cover_with_screws
+    name="cover"
+    pos="0 0.062 0.119"/>
+
+
+</robot>

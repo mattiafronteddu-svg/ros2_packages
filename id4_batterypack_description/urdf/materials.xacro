@@ -13,6 +13,10 @@
     <color rgba="0.8 0.8 0.8 1"/>
   </material>
 
+  <material name="light_gray_cover">
+    <color rgba="0.8 0.8 0.8 0.4"/>
+  </material>
+
   <material name="orange">
      <color rgba="1 0.65 0 1"/>
   </material>

@@ -1,26 +1,21 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <!-- ===== module mounting screws geometry (relative to module link) ===== -->
-  <xacro:property name="module_x0" value="0.011"/>
-  <xacro:property name="module_y0" value="0.015"/>
-  <xacro:property name="module_z0" value="0.1"/>
-  <xacro:property name="module_dx" value="0.5664"/>
-  <xacro:property name="module_dy" value="0.202"/>
-
-  <!-- ===== Screw for module ===== -->
-  <xacro:macro name="screw_module" params="name parent xyz rpy material:=gray">
+  <!-- ===== Screw for module (no rpy param because always 0 0 0) ===== -->
+  <xacro:macro name="screw_module" params="name parent xyz material:=gray">
     <link name="${name}">
       <visual>
         <geometry>
-          <mesh filename="package://id4_batterypack_description/meshes/m8x72_xzn_m10.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://id4_batterypack_description/meshes/m8x72_xzn_m10.stl"
+                scale="0.001 0.001 0.001"/>
         </geometry>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <material name="${material}"/>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://id4_batterypack_description/meshes/m8x72_xzn_m10.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://id4_batterypack_description/meshes/m8x72_xzn_m10.stl"
+                scale="0.001 0.001 0.001"/>
         </geometry>
         <origin xyz="0 0 0" rpy="0 0 0"/>
       </collision>
@@ -29,43 +24,59 @@
     <joint name="${name}_joint" type="fixed">
       <parent link="${parent}"/>
       <child link="${name}"/>
-      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <origin xyz="${xyz}" rpy="0 0 0"/>
     </joint>
   </xacro:macro>
 
+
   <!-- ===== One module instance + its 4 screws ===== -->
-  <xacro:macro name="module_instance" params="prefix idx world_x world_y world_z world_rpy material:=light_gray">
+  <!-- Le 4 viti vengono create QUI, automaticamente, quando chiami module_instance -->
+  <xacro:macro name="module_instance" params="prefix idx xyz rpy material:=light_gray screw_material:=gray">
+
+    <!-- Module link -->
     <link name="${prefix}module_${idx}">
       <visual>
         <geometry>
-          <mesh filename="package://id4_batterypack_description/meshes/module.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://id4_batterypack_description/meshes/module.stl"
+                scale="0.001 0.001 0.001"/>
         </geometry>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <material name="${material}"/>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://id4_batterypack_description/meshes/module.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://id4_batterypack_description/meshes/module.stl"
+                scale="0.001 0.001 0.001"/>
         </geometry>
         <origin xyz="0 0 0" rpy="0 0 0"/>
       </collision>
     </link>
 
+    <!-- Pose of module in world -->
     <joint name="world_to_${prefix}module_${idx}" type="fixed">
       <parent link="world"/>
       <child link="${prefix}module_${idx}"/>
-      <origin xyz="${world_x} ${world_y} ${world_z}" rpy="${world_rpy}"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
     </joint>
 
-    <!-- 4 screws relative to module -->
-    <xacro:screw_module name="${prefix}mod_${idx}_s1" parent="${prefix}module_${idx}"
-                        xyz="${module_x0} ${module_y0} ${module_z0}" rpy="0 0 0"/>
-    <xacro:screw_module name="${prefix}mod_${idx}_s2" parent="${prefix}module_${idx}"
-                        xyz="${module_x0} ${module_y0 + module_dy} ${module_z0}" rpy="0 0 0"/>
-    <xacro:screw_module name="${prefix}mod_${idx}_s3" parent="${prefix}module_${idx}"
-                        xyz="${module_x0 + module_dx} ${module_y0} ${module_z0}" rpy="0 0 0"/>
-    <xacro:screw_module name="${prefix}mod_${idx}_s4" parent="${prefix}module_${idx}"
-                        xyz="${module_x0 + module_dx} ${module_y0 + module_dy} ${module_z0}" rpy="0 0 0"/>
+    <!-- 4 screws relative to module (values explicit, rpy always 0 0 0) -->
+    <xacro:screw_module name="${prefix}mod_${idx}_s1" 
+                        parent="${prefix}module_${idx}"
+                        xyz="0.0115 0.011 0.075" 
+                        material="${screw_material}"/>
+    <xacro:screw_module name="${prefix}mod_${idx}_s2" 
+                        parent="${prefix}module_${idx}"
+                        xyz="0.0115 0.213 0.075" 
+                        material="${screw_material}"/>
+    <xacro:screw_module name="${prefix}mod_${idx}_s3" 
+                        parent="${prefix}module_${idx}"
+                        xyz="0.5779 0.011 0.075" 
+                        material="${screw_material}"/>
+    <xacro:screw_module name="${prefix}mod_${idx}_s4" 
+                        parent="${prefix}module_${idx}"
+                        xyz="0.5779 0.213 0.075" 
+                        material="${screw_material}"/>
+
   </xacro:macro>
 
 </robot>
