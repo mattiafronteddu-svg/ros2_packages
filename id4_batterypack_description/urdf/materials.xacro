@@ -12,7 +12,15 @@
   <material name="light_gray">
     <color rgba="0.8 0.8 0.8 1"/>
   </material>
+  
+  <material name="green">
+    <color rgba="0 0.7 0 1"/>
+  </material>
 
+  <material name="cornflower_blue">
+    <color rgba="${100/255} ${149/255} ${237/255} 1"/>
+  </material>
+    
   <material name="light_gray_cover">
     <color rgba="0.8 0.8 0.8 0.4"/>
   </material>

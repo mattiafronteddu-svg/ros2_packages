@@ -54,7 +54,7 @@
 
     <!-- Pose of module in world -->
     <joint name="world_to_${prefix}module_${idx}" type="fixed">
-      <parent link="world"/>
+      <parent link="chassis"/>
       <child link="${prefix}module_${idx}"/>
       <origin xyz="${xyz}" rpy="${rpy}"/>
     </joint>
