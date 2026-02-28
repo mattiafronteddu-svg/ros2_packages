@@ -2,6 +2,8 @@
 
 <robot name="cr_35ib" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+ <xacro:macro name="fanuc" params="prefix parent xyz rpy">
+
     <xacro:arg name="inertia_mode_sim" default="True"/>
     <xacro:if value="$(arg inertia_mode_sim)">
         <xacro:include filename="$(find fanuc_cr_35ib)/urdf/inertias_generated.xacro"/>
@@ -11,26 +13,15 @@
     </xacro:unless>
     <!-- <xacro:inertia_data inertia_mode_sim="$(arg inertia_mode_sim)"/> -->
 
+    <!-- base Joint and Link 0 -->
 
-    <material name="black">
-        <color rgba="0.05 0.05 0.05 1"/>
-    </material>
-
-    <material name="green">
-        <color rgba="0 0.7 0 1"/>
-    </material>
-
-    <link name="world"/>
-
-<!-- base Joint and Link 0 -->
-
-    <joint name="base_joint" type="fixed">
-        <origin rpy="0 0 0" xyz="0 0 0"/>
-        <parent link="world"/>
-        <child link="sensor"/>
+    <joint name="${prefix}base_joint" type="fixed">
+        <origin rpy="${rpy}" xyz="${xyz}"/>
+        <parent link="${parent}"/>
+        <child link="${prefix}sensor"/>
     </joint>
 
-    <link name="sensor">
+    <link name="${prefix}sensor">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -51,13 +42,13 @@
         </inertial>
     </link>
 
-    <joint name="base_joint2" type="fixed">
+    <joint name="${prefix}base_joint2" type="fixed">
         <origin rpy="0 0 0" xyz="0 0 0"/>
-        <parent link="world"/>
-        <child link="base"/>
+        <parent link="${prefix}sensor"/>
+        <child link="${prefix}base"/>
     </joint>
 
-    <link name="base">
+    <link name="${prefix}base">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -78,16 +69,16 @@
         </inertial>
     </link>
 
-<!-- Joint 1 and Link 1 -->
+    <!-- Joint 1 and Link 1 -->
 
-    <joint name="J1" type="revolute">
+    <joint name="${prefix}J1" type="revolute">
         <origin rpy="0 0 0" xyz="0 0 0.668"/>
-        <parent link="base"/>
-        <child link="link1"/>
+        <parent link="${prefix}base"/>
+        <child link="${prefix}link1"/>
         <axis xyz="0 0 1"/>
         <limit lower="-3.23" upper="3.23" effort="1" velocity="1.0"/>
     </joint>
-    <link name="link1">
+    <link name="${prefix}link1">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -108,12 +99,12 @@
         </inertial>
     </link>
 
-    <joint name="cover_j1" type="fixed">
+    <joint name="${prefix}cover_j1" type="fixed">
         <origin rpy="0 0 0" xyz="0 0 0"/>
-        <parent link="link1"/>
-        <child link="cover_j1"/>
+        <parent link="${prefix}link1"/>
+        <child link="${prefix}cover_j1"/>
     </joint>
-    <link name="cover_j1">
+    <link name="${prefix}cover_j1">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -134,12 +125,12 @@
         </inertial>
     </link>
 
-    <joint name="rear_cover_j1" type="fixed">
+    <joint name="${prefix}rear_cover_j1" type="fixed">
         <origin rpy="0 0 0" xyz="0 0 0"/>
-        <parent link="link1"/>
-        <child link="rear_cover_j1"/>
+        <parent link="${prefix}link1"/>
+        <child link="${prefix}rear_cover_j1"/>
     </joint>
-    <link name="rear_cover_j1">
+    <link name="${prefix}rear_cover_j1">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -160,16 +151,16 @@
         </inertial>
     </link>
 
-<!-- Joint 2 and Link 2 -->
+    <!-- Joint 2 and Link 2 -->
 
-    <joint name="J2" type="revolute">
+    <joint name="${prefix}J2" type="revolute">
         <origin rpy="-1.570796 0 0" xyz="0.075 0 0"/>
-        <parent link="link1"/>
-        <child link="link2"/>
+        <parent link="${prefix}link1"/>
+        <child link="${prefix}link2"/>
         <axis xyz="0 0 1"/>
         <limit lower="-1.40" upper="2.36" effort="1" velocity="1.0"/>
     </joint>
-    <link name="link2">
+    <link name="${prefix}link2">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -190,16 +181,16 @@
         </inertial>
     </link>
 
-<!-- Joint 3 and Link 3 -->
+    <!-- Joint 3 and Link 3 -->
 
-    <joint name="J3" type="revolute">
+    <joint name="${prefix}J3" type="revolute">
         <origin rpy="3.141529 0 -1.570796" xyz="0 -0.840 0"/>
-        <parent link="link2"/>
-        <child link="link3"/>
+        <parent link="${prefix}link2"/>
+        <child link="${prefix}link3"/>
         <axis xyz="0 0 1"/>
         <limit lower="-2.42" upper="3.49" effort="1" velocity="1.0"/>
     </joint>
-    <link name="link3">
+    <link name="${prefix}link3">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -220,12 +211,12 @@
         </inertial>
     </link>
 
-    <joint name="cover_j3" type="fixed">
+    <joint name="${prefix}cover_j3" type="fixed">
         <origin rpy="0 0 0" xyz="0 0 0"/>
-        <parent link="link3"/>
-        <child link="cover_j3"/>
+        <parent link="${prefix}link3"/>
+        <child link="${prefix}cover_j3"/>
     </joint>
-    <link name="cover_j3">
+    <link name="${prefix}cover_j3">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -246,16 +237,16 @@
         </inertial>
     </link>
 
-<!-- Joint 4 and Link 4 -->
+    <!-- Joint 4 and Link 4 -->
 
-    <joint name="J4" type="revolute">
+    <joint name="${prefix}J4" type="revolute">
         <origin rpy="-1.570796 0 0" xyz="0.215 0 0"/>
-        <parent link="link3"/>
-        <child link="link4"/>
+        <parent link="${prefix}link3"/>
+        <child link="${prefix}link4"/>
         <axis xyz="0 0 1"/>
         <limit lower="-3.49" upper="3.49" effort="1" velocity="1.0"/>
     </joint>
-    <link name="link4">
+    <link name="${prefix}link4">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -276,16 +267,16 @@
         </inertial>
     </link>
 
-<!-- Joint 5 and Link 5 -->
+    <!-- Joint 5 and Link 5 -->
 
-    <joint name="J5" type="revolute">
+    <joint name="${prefix}J5" type="revolute">
         <origin rpy="1.570796 0 0" xyz="0 0 -0.890"/>
-        <parent link="link4"/>
-        <child link="link5"/>
+        <parent link="${prefix}link4"/>
+        <child link="${prefix}link5"/>
         <axis xyz="0 0 1"/>
         <limit lower="-2.44" upper="2.44" effort="1" velocity="1.0"/>
     </joint>
-    <link name="link5">
+    <link name="${prefix}link5">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -306,16 +297,16 @@
         </inertial>
     </link>
 
-<!-- Joint 6 and Link 6 -->
+    <!-- Joint 6 and Link 6 -->
 
-    <joint name="J6" type="revolute">
+    <joint name="${prefix}J6" type="revolute">
         <origin rpy="-1.570796 0 0" xyz="0 0 0"/>
-        <parent link="link5"/>
-        <child link="link6"/>
+        <parent link="${prefix}link5"/>
+        <child link="${prefix}link6"/>
         <axis xyz="0 0 1"/>
         <limit lower="-7.85" upper="7.85" effort="1" velocity="1.0"/>
     </joint>
-    <link name="link6">
+    <link name="${prefix}link6">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -336,13 +327,36 @@
         </inertial>
     </link>
 
-<!-- TCP -->
+    <!-- TCP -->
 
-    <joint name="tcp" type="fixed">
+    <joint name="${prefix}tcp" type="fixed">
         <origin rpy="3.141593 0 0" xyz="0 0 -0.090"/>
-        <parent link="link6"/>
-        <child link="tcp"/>
+        <parent link="${prefix}link6"/>
+        <child link="${prefix}tcp"/>
     </joint>
-    <link name="tcp"/>
+    <link name="${prefix}tcp"/>
 
+    <link name="${prefix}tool_changer_cobot_side">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/tool_changer_cobot_side.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="avorio"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://fanuc_cr_35ib/meshes/tool_changer_cobot_side.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="${prefix}tc_to_t" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 -0.0925"/>
+        <parent link="${prefix}link6"/>
+        <child link="${prefix}tool_changer_cobot_side"/>
+    </joint>
+    
+ </xacro:macro>
 </robot>
