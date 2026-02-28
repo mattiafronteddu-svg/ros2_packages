@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="rack_tools_sx">
+
+  <xacro:macro name="rack_tools_sx" params="parent xyz rpy">
+
+    <link name="rack_tools_sx">
+        <visual>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/lateral_rack_tools_sx.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <material name="gray"/>
+        </visual>
+        <collision>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/lateral_rack_tools_sx.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="world_to_rack_sx" type="fixed">
+        <parent link="${parent}"/>
+        <child link="rack_tools_sx"/>
+        <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint> 
+
+    <link name="tool2_direct_screwdriver_sx">
+        <visual>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/tools/tool2_direct_screwdriver.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <material name="cornflower_blue"/>
+        </visual>
+        <collision>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/tools/tool2_direct_screwdriver.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="rack_sx_to_tool2" type="fixed">
+        <parent link="rack_tools_sx"/>
+        <child link="tool2_direct_screwdriver_sx"/>
+        <origin xyz="0.1177 0.1 1.0305" rpy="0 0 0"/>
+    </joint> 
+
+    <link name="tool3_screwdriver_sx">
+        <visual>
+         <geometry>
+             <mesh filename="package://scene_description/meshes/tools/tool3_screwdriver.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <material name="cornflower_blue"/>
+         </visual>
+        <collision>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/tools/tool3_screwdriver.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="rack_sx_to_tool3" type="fixed">
+        <parent link="rack_tools_sx"/>
+        <child link="tool3_screwdriver_sx"/>
+        <origin xyz="0.1177 0.7 1.0305" rpy="0 0 0"/>
+    </joint> 
+
+    <link name="tool4_gripper_sx">
+        <visual>
+         <geometry>
+             <mesh filename="package://scene_description/meshes/tools/tool4_gripper.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <material name="cornflower_blue"/>
+        </visual>
+        <collision>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/tools/tool4_gripper.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="rack_sx_to_tool4" type="fixed">
+        <parent link="rack_tools_sx"/>
+        <child link="tool4_gripper_sx"/>
+        <origin xyz="0.1177 0.4 1.0305" rpy="0 0 0"/>
+    </joint> 
+
+  </xacro:macro>
+
+</robot>

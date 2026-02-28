@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="vision_structure">
+
+  <xacro:macro name="vision_structure" params="parent xyz rpy">
+
+    <link name="vision_structure">
+        <visual>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/vision_structure.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <material name="light_gray"/>
+        </visual>
+        <collision>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/vision_structure.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="world_to_vision_structure" type="fixed">
+        <parent link="${parent}"/>
+        <child link="vision_structure"/>
+        <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint> 
+
+  </xacro:macro>
+
+</robot>

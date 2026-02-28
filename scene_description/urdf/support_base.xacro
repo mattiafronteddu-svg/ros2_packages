@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="support_base">
+
+  <xacro:macro name="support_base" params="prefix parent xyz rpy">
+
+    <link name="${prefix}">
+        <visual>
+          <geometry>
+            <mesh filename="package://scene_description/meshes/support_base_fanuc_cr35ib.stl" scale="0.001  0.001 0.001"/>
+          </geometry>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <material name="gray"/>
+        </visual>
+        <collision>
+          <geometry>
+            <mesh filename="package://scene_description/meshes/support_base_fanuc_cr35ib.stl" scale="0.001  0.001 0.001"/>
+          </geometry>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="${prefix}_to_world" type="fixed">
+        <parent link="${parent}"/>
+        <child link="${prefix}"/>
+        <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

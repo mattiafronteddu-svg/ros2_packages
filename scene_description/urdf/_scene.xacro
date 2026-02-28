@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="scene">
+
+  <xacro:include filename="$(find scene_description)/urdf/central_rack_tools.xacro"/>
+  <xacro:include filename="$(find scene_description)/urdf/rack_tools_sx.xacro"/>
+  <xacro:include filename="$(find scene_description)/urdf/rack_tools_dx.xacro"/>
+  <xacro:include filename="$(find scene_description)/urdf/vision_structure.xacro"/>
+  <xacro:include filename="$(find scene_description)/urdf/cart_with_id4.xacro"/>
+  <xacro:include filename="$(find scene_description)/urdf/support_base.xacro"/>
+  <xacro:include filename="$(find scene_description)/urdf/working_frame.xacro"/>
+  <xacro:include filename="$(find scene_description)/urdf/controller_robot.xacro"/>
+
+  <xacro:include filename="$(find fanuc_cr_35ib)/urdf/fanuc_cr_35ib.urdf.xacro"/>
+
+  <link name="world"/>
+
+  <xacro:support_base
+    prefix="support_base1_"
+    parent="world"
+    xyz="-1.1905 0.0375 0"
+    rpy="0 0 ${pi/2}"/>
+
+  <xacro:support_base
+    prefix="support_base2_"
+    parent="world"
+    xyz="1.1905 0.0375 0"
+    rpy="0 0 -${pi/2}"/>
+
+  <xacro:working_frame
+    parent="world"
+    xyz="0 0 0"
+    rpy="${pi/2} 0 ${pi/2}"/>
+
+  <xacro:rack_tools_sx
+    parent="world"
+    xyz="-1.0555 0.7125 0"
+    rpy="0 0 0"/>
+
+  <xacro:rack_tools_dx
+    parent="world"
+    xyz="1.0555 0.7125 0"
+    rpy="0 0 0"/>
+
+  <xacro:central_rack_tools
+    parent="world"
+    xyz="0.310 0.9925 0"
+    rpy="0 0 0"/>
+
+  <xacro:vision_structure
+    parent="world"
+    xyz="-2.0855 -2.0525 0"
+    rpy="0 0 0"/>
+
+  <xacro:cart_with_id4
+    parent="world"
+    xyz="0 0 0"
+    rpy="0 0 0"/>
+
+  <xacro:fanuc
+    prefix="fanuc1_"
+    parent="support_base1_"
+    xyz="0 0 0.550"
+    rpy="0 0 ${-pi/2}"/>
+
+  <xacro:fanuc
+    prefix="fanuc2_"
+    parent="support_base2_"
+    xyz="0 0 0.550"
+    rpy="0 0 ${-pi/2}"/>
+  
+    <xacro:controller_robot
+    prefix="1"
+    parent="world"
+    xyz="0 2.8725 0"
+    rpy="0 0 0"/>
+
+    <xacro:controller_robot
+    prefix="2"
+    parent="world"
+    xyz="0 2.8725 0.502"
+    rpy="0 0 0"/>
+
+</robot>

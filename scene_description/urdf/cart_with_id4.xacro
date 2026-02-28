@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="scene">
+
+  <xacro:macro name="cart_with_id4" params="parent xyz rpy">
+    <xacro:include filename="$(find id4_batterypack_description)/urdf/_id4_battery.xacro"/>
+
+    <link name="cart">
+      <visual>
+        <geometry>
+          <mesh filename="package://scene_description/meshes/cart_md.stl" scale="1 1 1"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="light_gray"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://scene_description/meshes/cart_md.stl" scale="1 1 1"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </collision>
+    </link>
+
+    <joint name="world_to_cart" type="prismatic">
+      <parent link="${parent}"/>
+      <child link="cart"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <axis xyz="0 1 0"/>
+      <limit lower="0" upper="-2.0" effort="1000" velocity="1"/>
+    </joint> 
+
+    <xacro:id4
+      parent="cart"
+      xyz="0 -0.867 0.813"
+      rpy="0 0 0"/>
+
+  </xacro:macro>
+</robot>

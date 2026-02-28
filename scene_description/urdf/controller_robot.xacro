@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="controller_robot">
+
+  <xacro:macro name="controller_robot" params="prefix parent xyz rpy">
+
+    <link name="controller_robot_${prefix}">
+        <visual>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/controller_robot.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <material name="avorio"/>
+        </visual>
+        <collision>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/controller_robot.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="world_to_controller_robot_${prefix}" type="fixed">
+        <parent link="${parent}"/>
+        <child link="controller_robot_${prefix}"/>
+        <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint> 
+
+
+  </xacro:macro>
+
+</robot>

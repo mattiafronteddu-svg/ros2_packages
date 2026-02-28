@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="working_frame">
+
+  <xacro:macro name="working_frame" params="parent xyz rpy">
+
+    <link name="working_frame">
+        <visual>
+        <geometry>
+            <mesh filename="package://scene_description/meshes/working_frame.stl" scale="0.001  0.001 0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="light_gray"/>
+        </visual>
+        <collision>
+        <geometry>
+            <mesh filename="package://scene_description/meshes/working_frame.stl" scale="0.001  0.001 0.001"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="world_to_working_frame" type="fixed">
+        <parent link="${parent}"/>
+        <child link="working_frame"/>
+        <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint> 
+
+  </xacro:macro>
+
+</robot>

@@ -3,16 +3,6 @@
 
   <xacro:macro name="central_rack_tools" params="parent xyz rpy">
 
-    <!-- <material name="gray">
-      <color rgba="0.5 0.5 0.5 1"/>
-    </material> -->
-
-    <!-- <material name="light_gray">
-      <color rgba="0.8 0.8 0.8 1"/>
-    </material> -->
-
-    <!-- <link name="wsorld"/> -->
-
     <link name="lower_part">
       <visual>
         <geometry>
@@ -54,11 +44,55 @@
     <joint name="world_to_upper_part" type="prismatic">
       <parent link="lower_part"/>
       <child link="upper_part"/>
-      <origin xyz="-0.275 0.1046 0.1475" rpy="0 0 0"/>
+      <origin xyz="-0.310 0.1046 0.1475" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
       <limit lower="0" upper="0.5" effort="1000" velocity="1"/>
     </joint> 
-  
+
+    <link name="tool1_vacuum_gripper_cr">
+        <visual>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/tools/tool1_vacuum_gripper.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <material name="cornflower_blue"/>
+        </visual>
+        <collision>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/tools/tool1_vacuum_gripper.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="upper_part_to_tool1" type="fixed">
+        <parent link="upper_part"/>
+        <child link="tool1_vacuum_gripper_cr"/>
+        <origin xyz="-0.1265 -0.4677 0.9978" rpy="0 0 0"/>
+    </joint> 
+
+    <link name="tool5_detacher">
+        <visual>
+         <geometry>
+             <mesh filename="package://scene_description/meshes/tools/tool5_detacher.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <material name="cornflower_blue"/>
+         </visual>
+        <collision>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/tools/tool5_detacher.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="upper_part_to_tool5" type="fixed">
+        <parent link="upper_part"/>
+        <child link="tool5_detacher"/>
+        <origin xyz="0.1265 -0.4677 0.9978" rpy="0 0 0"/>
+    </joint> 
+
   </xacro:macro>
 
 </robot>
