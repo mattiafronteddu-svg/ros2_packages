@@ -17,6 +17,14 @@
     <color rgba="0 0.7 0 1"/>
   </material>
 
+  <material name="army_green">
+    <color rgba="${75/255} ${83/255} ${32/255} 1"/>
+  </material>
+
+  <material name="avorio">
+    <color rgba="${255/255} ${255/255} ${240/255} 1"/>
+  </material>
+
   <material name="cornflower_blue">
     <color rgba="${100/255} ${149/255} ${237/255} 1"/>
   </material>

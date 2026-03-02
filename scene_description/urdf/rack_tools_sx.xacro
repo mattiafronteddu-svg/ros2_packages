@@ -3,6 +3,8 @@
 
   <xacro:macro name="rack_tools_sx" params="parent xyz rpy">
 
+    <xacro:include filename="$(find scene_description)/urdf/tool4_gripper.xacro"/>
+
     <link name="rack_tools_sx">
         <visual>
          <geometry>
@@ -31,7 +33,7 @@
             <mesh filename="package://scene_description/meshes/tools/tool2_direct_screwdriver.stl" scale="0.001  0.001 0.001"/>
          </geometry>
          <origin xyz="0 0 0" rpy="0 0 0"/>
-         <material name="cornflower_blue"/>
+         <material name="army_green"/>
         </visual>
         <collision>
          <geometry>
@@ -53,7 +55,7 @@
              <mesh filename="package://scene_description/meshes/tools/tool3_screwdriver.stl" scale="0.001  0.001 0.001"/>
          </geometry>
          <origin xyz="0 0 0" rpy="0 0 0"/>
-         <material name="cornflower_blue"/>
+         <material name="army_green"/>
          </visual>
         <collision>
          <geometry>
@@ -69,27 +71,11 @@
         <origin xyz="0.1177 0.7 1.0305" rpy="0 0 0"/>
     </joint> 
 
-    <link name="tool4_gripper_sx">
-        <visual>
-         <geometry>
-             <mesh filename="package://scene_description/meshes/tools/tool4_gripper.stl" scale="0.001  0.001 0.001"/>
-         </geometry>
-         <origin xyz="0 0 0" rpy="0 0 0"/>
-         <material name="cornflower_blue"/>
-        </visual>
-        <collision>
-         <geometry>
-            <mesh filename="package://scene_description/meshes/tools/tool4_gripper.stl" scale="0.001  0.001 0.001"/>
-         </geometry>
-         <origin xyz="0 0 0" rpy="0 0 0"/>
-        </collision>
-    </link>
-
-    <joint name="rack_sx_to_tool4" type="fixed">
-        <parent link="rack_tools_sx"/>
-        <child link="tool4_gripper_sx"/>
-        <origin xyz="0.1177 0.4 1.0305" rpy="0 0 0"/>
-    </joint> 
+    <xacro:tool4_gripper
+      prefix="2"
+      parent="rack_tools_sx"
+      xyz="0.1177 0.4 1.0305" 
+      rpy="0 0 0"/>
 
   </xacro:macro>
 

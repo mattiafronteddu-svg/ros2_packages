@@ -342,7 +342,7 @@
             <geometry>
                 <mesh filename="package://fanuc_cr_35ib/meshes/tool_changer_cobot_side.stl" scale="0.001 0.001 0.001"/>
             </geometry>
-            <material name="avorio"/>
+            <material name="army_green"/>
         </visual>
         <collision>
             <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -353,7 +353,7 @@
     </link>
 
     <joint name="${prefix}tc_to_t" type="fixed">
-        <origin rpy="0 0 0" xyz="0 0 -0.0925"/>
+        <origin rpy="0 0 0" xyz="0 0 -0.090"/>
         <parent link="${prefix}link6"/>
         <child link="${prefix}tool_changer_cobot_side"/>
     </joint>

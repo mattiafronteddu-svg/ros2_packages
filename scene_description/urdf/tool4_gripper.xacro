@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="tool4_gripper_dx">
+
+  <xacro:macro name="tool4_gripper" params="parent prefix xyz rpy">
+
+    <link name="tool4_gripper_${prefix}">
+        <visual>
+         <geometry>
+             <mesh filename="package://scene_description/meshes/tools/tool4_gripper.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <material name="army_green"/>
+        </visual>
+        <collision>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/tools/tool4_gripper.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="rack_dx_to_tool4_${prefix}" type="fixed">
+        <parent link="${parent}"/>
+        <child link="tool4_gripper_${prefix}"/>
+        <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint> 
+
+    <link name="Jaw_sx_${prefix}">
+        <visual>
+         <geometry>
+             <mesh filename="package://scene_description/meshes/tools/tool4_gripper_jaw.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <material name="green"/>
+        </visual>
+        <collision>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/tools/tool4_gripper_jaw.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="Jaws_sx_to_gripper_${prefix}" type="prismatic">
+        <parent link="tool4_gripper_${prefix}"/>
+        <child link="Jaw_sx_${prefix}"/>
+        <origin xyz="0 0 -0.1734" rpy="0 0 ${pi/3}"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-0.02" upper="0" effort="100" velocity="0.1"/>
+    </joint>
+
+    <link name="Jaw_dx_${prefix}">
+        <visual>
+         <geometry>
+             <mesh filename="package://scene_description/meshes/tools/tool4_gripper_jaw.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <material name="green"/>
+        </visual>
+        <collision>
+         <geometry>
+            <mesh filename="package://scene_description/meshes/tools/tool4_gripper_jaw.stl" scale="0.001  0.001 0.001"/>
+         </geometry>
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="Jaws_dx_to_gripper_${prefix}" type="prismatic">
+        <parent link="tool4_gripper_${prefix}"/>
+        <child link="Jaw_dx_${prefix}"/>
+        <origin xyz="0 0 -0.1734" rpy="0 0 ${-pi/6-pi/2}"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-0.02" upper="0" effort="100" velocity="0.1"/>
+        <mimic joint="Jaws_sx_to_gripper_${prefix}" multiplier="1.0" offset="0.0"/>
+    </joint>
+
+
+
+  </xacro:macro>
+
+</robot>

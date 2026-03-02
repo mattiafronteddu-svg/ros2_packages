@@ -55,7 +55,7 @@
             <mesh filename="package://scene_description/meshes/tools/tool1_vacuum_gripper.stl" scale="0.001  0.001 0.001"/>
          </geometry>
          <origin xyz="0 0 0" rpy="0 0 0"/>
-         <material name="cornflower_blue"/>
+         <material name="army_green"/>
         </visual>
         <collision>
          <geometry>
@@ -77,7 +77,7 @@
              <mesh filename="package://scene_description/meshes/tools/tool5_detacher.stl" scale="0.001  0.001 0.001"/>
          </geometry>
          <origin xyz="0 0 0" rpy="0 0 0"/>
-         <material name="cornflower_blue"/>
+         <material name="army_green"/>
          </visual>
         <collision>
          <geometry>
